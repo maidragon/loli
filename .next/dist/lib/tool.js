@@ -4,11 +4,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _regenerator = require("/Users/phbai/Documents/code/loli3/node_modules/babel-runtime/regenerator");
+var _regenerator = require("C:\\Users\\Abaijun\\Documents\\GitHub\\loli\\node_modules\\babel-runtime/regenerator");
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = require("/Users/phbai/Documents/code/loli3/node_modules/babel-runtime/helpers/asyncToGenerator");
+var _asyncToGenerator2 = require("C:\\Users\\Abaijun\\Documents\\GitHub\\loli\\node_modules\\babel-runtime/helpers/asyncToGenerator");
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 

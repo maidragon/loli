@@ -21,6 +21,8 @@ export default class extends React.Component {
         // 直接从 url 进入组件
         if (uid == null || token == null) {
             verify();
+            uid = localStorage.getItem("userid");
+            token = localStorage.getItem("token");
         }
 
         let res = await fetch(`http://loli.vc/play/${this.props.id}?uid=${uid}&token=${token}`);
@@ -29,7 +31,9 @@ export default class extends React.Component {
         if (data.Result == 0) {
             // 认证已过期, 需要重新认证
             verify();
-
+            uid = localStorage.getItem("userid");
+            token = localStorage.getItem("token");
+            
             // 重新认证后发请求
             res = await fetch(`http://loli.vc/play/${this.props.id}?uid=${uid}&token=${token}`);
             data = await res.json();
@@ -76,8 +80,17 @@ export default class extends React.Component {
                         margin: 0 auto;
                     }
                     .mask {
-                        height: 480px;
                         background: #000;
+                    }
+                    @media screen and (min-height: 630px) and (min-width: 1294px) {
+                        .mask {
+                            height: 480px;
+                        }
+                    }
+                    @media screen and (min-height: 870px) and (min-width: 1320px) {
+                        .mask {
+                            height: 720px;
+                        }
                     }
                 `}</style>
             </div>
