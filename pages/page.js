@@ -2,9 +2,16 @@ import React from 'react'
 import Link from 'next/link'
 import Container from '../components/container'
 import MovieItem from '../components/movieItem'
+import Head from 'next/head'
+import Header from '../components/header'
 import 'isomorphic-fetch'
 
 export default class extends React.Component {
+    static async getInitialProps ({ query: { page } }) {
+        console.log(page);
+
+        return {page: page};
+    }
 
     constructor (props) {
         super(props);
@@ -12,7 +19,8 @@ export default class extends React.Component {
     }
 
     async componentWillMount() {
-        const res = await fetch('http://loli.vc/category/-1?page=1');
+        const page = this.props.page;
+        const res = await fetch(`http://loli.vc/category/-1?page=${page}`);
         const json = await res.json();
         this.setState({movies: json.Message.Movies});
     }
@@ -26,6 +34,14 @@ export default class extends React.Component {
         return (
             <div className="content">
 
+                <Head>
+                    <title>loli 3.0</title>
+                    <meta charSet='utf-8' />
+                    <link rel="stylesheet" href="/static/global.css" />
+                </Head>
+
+                <Header/>
+                
                 <div className="container">
                     {movieList}
                 </div>

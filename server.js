@@ -13,13 +13,19 @@ app.prepare()
     const query = parse(req.url, true).query;
 
     const moviePattern = /^\/m\/[1-9]+[0-9]*$/;
+    const pagePattern = /^\/p\/[1-9]+[0-9]*$/;
 
     if (moviePattern.test(pathname)) {
       
       query.id = parseInt(pathname.replace(/^\/m\//g, ""));
       console.log(query.id);
 
-      app.render(req, res, '/movie', query)
+      app.render(req, res, '/movie', query);
+    } else if (pagePattern.test(pathname)) {
+      query.page = parseInt(pathname.replace(/^\/p\//g, ""));
+      console.log(query.page);
+
+      app.render(req, res, '/page', query);
     } else {
       handle(req, res)
     }

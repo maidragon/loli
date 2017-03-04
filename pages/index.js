@@ -3,11 +3,18 @@ import Link from 'next/link'
 import Content from '../components/content'
 import Head from 'next/head'
 import Header from '../components/header'
+import verify from '../lib/tool'
 
 export default class extends React.Component {
 
     constructor (props) {
         super(props);
+    }
+
+    async componentWillMount() {
+        if (localStorage.getItem("userid") != null) {
+            verify();
+        }
     }
 
     render() {
