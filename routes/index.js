@@ -95,51 +95,51 @@ router.get('/category/:id', function(req, res, next) {
 });
 
 /* BILIBILI API */
-router.get('/login', function(req, res, next) {
-    var user = req.query.user;
-    var passwd = req.query.passwd;
+// router.get('/login', function(req, res, next) {
+//     var user = req.query.user;
+//     var passwd = req.query.passwd;
 
-    if (user == null || passwd == null) {
-        var result = {'status': false, 'msg': 'can\'t get access_key'};
-        res.json(result);
-        return;
-    }
+//     if (user == null || passwd == null) {
+//         var result = {'status': false, 'msg': 'can\'t get access_key'};
+//         res.json(result);
+//         return;
+//     }
 
-    request.post({url: 'https://api.kaaass.net/biliapi/login', form: {'user': user, 'passwd': passwd}}, function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var result = JSON.parse(body);
-            res.json(result);
-        } 
-    }); 
-});
+//     request.post({url: 'https://api.kaaass.net/biliapi/login', form: {'user': user, 'passwd': passwd}}, function(error, response, body) {
+//         if (!error && response.statusCode == 200) {
+//             var result = JSON.parse(body);
+//             res.json(result);
+//         } 
+//     }); 
+// });
 
-router.get('/history', function(req, res, next) {
-    var access_key = req.query.access_key;
-    var pn = req.query.pn;
-    var ps = req.query.ps;
+// router.get('/history', function(req, res, next) {
+//     var access_key = req.query.access_key;
+//     var pn = req.query.pn;
+//     var ps = req.query.ps;
 
-    if (access_key == null) {
-        var result = {'status': false, 'msg': 'access_key can\'t be null'};
-        res.json(result);
-        return;
-    }
+//     if (access_key == null) {
+//         var result = {'status': false, 'msg': 'access_key can\'t be null'};
+//         res.json(result);
+//         return;
+//     }
 
-    if (pn == null) {
-        pn = 1;
-    }
+//     if (pn == null) {
+//         pn = 1;
+//     }
 
-    if (ps == null) {
-        ps = 30;
-    }
+//     if (ps == null) {
+//         ps = 30;
+//     }
 
-    request(`http://api.bilibili.com/history?access_key=${access_key}&pn=${pn}&ps=${ps}`, function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var result = JSON.parse(body);
-            res.json(result);
-        } 
-    });
+//     request(`http://api.bilibili.com/history?access_key=${access_key}&pn=${pn}&ps=${ps}`, function(error, response, body) {
+//         if (!error && response.statusCode == 200) {
+//             var result = JSON.parse(body);
+//             res.json(result);
+//         } 
+//     });
     
-});
+// });
 
 router.get('/m/:id', function(req, res, next) {
     var id = req.param('id');
@@ -181,5 +181,34 @@ router.get('/:src', function(req, res, next) {
     if (!src) {
         request.get(src).pipe(res);
     }
+});
+
+router.get('/login/:uid', function(req, res, next) {
+    var uid = req.param('uid');
+
+    request.post({url: 'http://todayapi.com/vodapi.html', form: {data: `{"Action":"Start","Message":{"UID":"${uid}","IMEI":"0","SID":"0","OS":"1","Model":"","PID":"0","IDFA":"${uid}"}}`}}, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var result = JSON.parse(body);
+            var token = result.Message.Token;
+
+            var cookie = request.cookie(`Token=${token}`);
+            res.json(result);
+            
+        }
+    });
+});
+
+router.get('/play/:id', function(req, res, next) {
+    var id = req.param('id');
+    var uid = req.query.uid;
+    var token = req.query.token;
+
+    request.post({url: 'http://todayapi.com/vodapi.html', form: {data: `{"Action":"PlayFreeMovie","Message":{"UID":"${uid}","Token":"${token}","MovieID":"${id}"}}`}}, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var result = JSON.parse(body);
+            
+            res.json(result);
+        }
+    });
 });
 module.exports = router;
