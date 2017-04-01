@@ -11,5 +11,14 @@ p {
 }
 a {
 	text-decoration: none;
+	cursor: pointer;
 	color: #333;
+}
+ul {
+	margin: 0;
+}
+li {
+	list-style: none;
+    display: inline-block;
+    font-size: 12px;
 }

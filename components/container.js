@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 
 export default class extends React.Component {
 
@@ -7,14 +8,25 @@ export default class extends React.Component {
     }
 
     render() {
+        var containerClass = classNames({
+            'container': true,
+            'flex': this.props.flex,
+            'small': this.props.small
+        });
         return (
-            <div className="container">
+            <div className={containerClass}>
                 {this.props.children}
                 <style jsx>{`
-                    .container {
+                    .container.small {
                         width: 1050px;
+                    }
+                    .container {
                         height: 100%;
                         margin: 0 auto;
+                    }
+                    .container.flex {
+                        display: flex;
+                        justify-content: space-between;
                     }
                     @media screen and (min-height: 630px) and (min-width: 1294px) {
                         .container {

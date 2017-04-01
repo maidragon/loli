@@ -9,8 +9,6 @@ import verify from '../lib/tool'
 
 export default class extends React.Component {
     static async getInitialProps ({ query: { id } }) {
-        console.log(id);
-
         return {id: id}
     }
 
@@ -65,10 +63,10 @@ export default class extends React.Component {
                     <meta charSet='utf-8' />
                     <link rel="stylesheet" href="/static/global.css" />
                 </Head>
-                <Header/>
 
+                <Header/>
                 <div className="mask">
-                    <Container>
+                    <Container flex={true}>
                         <video className="test"></video>
                     </Container>
                 </div>

@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Content from '../components/content'
 import Head from 'next/head'
 import Header from '../components/header'
+import Pagination from '../components/pagination'
+import Footer from '../components/footer'
 import verify from '../lib/tool'
 
 export default class extends React.Component {
@@ -27,7 +29,8 @@ export default class extends React.Component {
                 </Head>
 
                 <Header/>
-                <Content/>
+                <Content page={1}/>
+                <Footer/>
                 <style jsx>{`
                     body {
                         margin: 0;

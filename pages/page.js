@@ -4,6 +4,8 @@ import Container from '../components/container'
 import MovieItem from '../components/movieItem'
 import Head from 'next/head'
 import Header from '../components/header'
+import Content from '../components/content'
+import Footer from '../components/footer'
 import 'isomorphic-fetch'
 
 export default class extends React.Component {
@@ -20,19 +22,19 @@ export default class extends React.Component {
 
     async componentWillMount() {
         const page = this.props.page;
-        const res = await fetch(`http://loli.vc/category/-1?page=${page}`);
-        const json = await res.json();
-        this.setState({movies: json.Message.Movies});
+        // const res = await fetch(`http://loli.vc/category/-1?page=${page}`);
+        // const json = await res.json();
+        // this.setState({movies: json.Message.Movies});
     }
 
     render() {
         // console.log(this.state.movies);
-        const movieList = this.state.movies.map((movie) => 
-            <MovieItem key={movie.MovieID} movieInfo={movie}></MovieItem>
-        );
+        // const movieList = this.state.movies.map((movie) => 
+        //     <MovieItem key={movie.MovieID} movieInfo={movie}></MovieItem>
+        // );
 
         return (
-            <div className="content">
+            <div>
 
                 <Head>
                     <title>loli 3.0</title>
@@ -42,13 +44,14 @@ export default class extends React.Component {
 
                 <Header/>
                 
-                <div className="container">
-                    {movieList}
-                </div>
+                <Content page={this.props.page}/>
                 
+                <Footer/>
+
                 <style jsx>{`
                     .content {
-                        background: #f5f5f5;
+                        padding-top: 60px;
+                        background: #000;
                         width: 100%;
                         min-height: 800px;
                     }

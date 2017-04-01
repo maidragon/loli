@@ -2,17 +2,18 @@ import React from 'react'
 import Link from 'next/link'
 import Container from './container'
 import MovieItem from './movieItem'
+import Pagination from './pagination'
 import 'isomorphic-fetch'
 
 export default class extends React.Component {
 
     constructor (props) {
         super(props);
-        this.state = {movies: []}
+        this.state = {movies: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]}
     }
 
-    async componentWillMount() {
-        const res = await fetch('http://loli.vc/category/-1?page=1');
+    async componentDidMount() {
+        const res = await fetch(`http://loli.vc/category/-1?page=${this.props.page}`);
         const json = await res.json();
         this.setState({movies: json.Message.Movies});
     }
@@ -28,11 +29,14 @@ export default class extends React.Component {
 
                 <div className="container">
                     {movieList}
+                    <Pagination page={this.props.page}/>
                 </div>
                 
+
                 <style jsx>{`
                     .content {
-                        background: #f5f5f5;
+                        padding-top: 60px;
+                        background: #000;
                         width: 100%;
                         min-height: 800px;
                     }

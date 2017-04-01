@@ -13,8 +13,13 @@ export default class extends React.Component {
 
                 <style jsx>{`
                     .thumbnail {
+                        position: relative;
+                        padding-top: 66.7%;
                     }
                     .thumbnail img {
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
                         display: block;
                         max-width: 100%;
                         height: auto;

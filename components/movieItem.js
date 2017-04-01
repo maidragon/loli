@@ -3,6 +3,13 @@ import Image from './image'
 import Tag from './tag'
 import Link from 'next/link'
 
+// <div className="description">
+//     <Tag name="素人"></Tag>
+
+//     <a href={'/m/' + this.props.movieInfo.MovieID} target="_blank">
+//         <p className="title">{this.props.movieInfo.Name}</p>
+//     </a>
+// </div>
 export default class extends React.Component {
 
     constructor (props) {
@@ -17,14 +24,6 @@ export default class extends React.Component {
                     <Image src={this.props.movieInfo.CoverImg}></Image>
                 </a>
 
-                <div className="description">
-                    <Tag name="素人"></Tag>
-
-                    <a href={'/m/' + this.props.movieInfo.MovieID} target="_blank">
-                        <p className="title">{this.props.movieInfo.Name}</p>
-                    </a>
-                </div>
-                
                 <style jsx>{`
                     .movie-item {
                         width: calc(50% - 4px);

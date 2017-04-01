@@ -12,6 +12,9 @@ app.prepare()
     const pathname = parse(req.url, true).pathname;
     const query = parse(req.url, true).query;
 
+    // console.log(Object.keys(req));
+    req.headers["Access-Control-Allow-Origin"] = "*";
+    req.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept";
     const moviePattern = /^\/m\/[1-9]+[0-9]*$/;
     const pagePattern = /^\/p\/[1-9]+[0-9]*$/;
 
