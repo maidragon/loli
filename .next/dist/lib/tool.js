@@ -28,7 +28,7 @@ var verify = function () {
                         localStorage.setItem("userid", userid);
 
                         _context.next = 4;
-                        return fetch("http://loli.vc/login/" + userid);
+                        return fetch("https://loliapi.com/login/" + userid);
 
                     case 4:
                         res = _context.sent;

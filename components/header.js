@@ -1,6 +1,7 @@
 import React from 'react'
 import Container from './container'
 import MenuItem from './menuItem';
+import Link from 'next/link'
 
 export default class extends React.Component {
 
@@ -11,12 +12,20 @@ export default class extends React.Component {
     render() {
         return (
             <div className="header">
-                <Container flex={true}>                                     
-                    <img src="/static/logo.svg"/>                       
+                <Container flex={true}>
+                    <Link href="/">
+                        <img src="/static/logo.svg"/> 
+                    </Link>
                         
                     <div className="menu">
-                        <MenuItem>注册</MenuItem>
-                        <MenuItem>登录</MenuItem>
+                        <a href="/register">
+                            <MenuItem>注册</MenuItem>
+                        </a>
+
+                        <a href="/login">
+                            <MenuItem>登录</MenuItem>
+                        </a>
+                        
                         <MenuItem>关于</MenuItem>
                     </div>
                 </Container>

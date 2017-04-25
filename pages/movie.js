@@ -23,8 +23,10 @@ export default class extends React.Component {
             token = localStorage.getItem("token");
         }
 
-        let res = await fetch(`http://loli.vc/play/${this.props.id}?uid=${uid}&token=${token}`);
+        let res = await fetch(`https://loliapi.com/play/${this.props.id}?uid=${uid}&token=${token}`);
+        let res2 = await fetch(`https://loliapi.com/info/${this.props.id}`);
         let data = await res.json();
+        let info = await res2.json();
 
         if (data.Result == 0) {
             // 认证已过期, 需要重新认证
@@ -33,16 +35,19 @@ export default class extends React.Component {
             token = localStorage.getItem("token");
             
             // 重新认证后发请求
-            res = await fetch(`http://loli.vc/play/${this.props.id}?uid=${uid}&token=${token}`);
+            res = await fetch(`https://loliapi.com/play/${this.props.id}?uid=${uid}&token=${token}`);
             data = await res.json();
         }
 
         this.setState({url: data.Message});
+        this.setState({info: info.Message});
 
         if(Hls.isSupported()) {
             var video = document.querySelector('.test');
             var hls = new Hls();
-            hls.loadSource(this.state.url);
+            // var m3u8Url = decodeURIComponent("https://loliapi.com/cors/" + this.state.url);
+            var m3u8Url = this.state.url;
+            hls.loadSource(m3u8Url);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED,function() {
               video.play();
@@ -52,14 +57,14 @@ export default class extends React.Component {
 
     constructor (props) {
         super(props);
-        this.state = {url: ""};
+        this.state = {url: "", info: {}};
     }
 
     render() {
         return (
             <div className="movie">
                 <Head>
-                    <title>loli 3.0</title>
+                    <title>{this.state.info.Name}</title>
                     <meta charSet='utf-8' />
                     <link rel="stylesheet" href="/static/global.css" />
                 </Head>
